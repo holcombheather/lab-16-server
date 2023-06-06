@@ -29,17 +29,15 @@ Deploy a simple Node.js server to EC2, using Elastic Beanstalk
 ### Links and Resources
 
 - [GitHub Actions ci/cd](https://github.com/holcombheather/lab-16-server/actions)
-- [Task 1 ](http://beansarefun-env.eba-5axjwxcp.us-west-1.elasticbeanstalk.com/)
-- [Task 2]()
+- [Task 1: GUI Deploy ](http://beansarefun-env.eba-5axjwxcp.us-west-1.elasticbeanstalk.com/)
+- [Task 2: CLI Deploy](http://beansarecool-dev.us-west-2.elasticbeanstalk.com/)
 
 ***
 
 ### Collaborators
 
-- Referenced lecture demo for class 12 with instructor Ryan Gallaway
-- Reference lecture code review in class 13 with instructor Ryan Gallaway
-- Consulted TA Keleen for help on feature for clients joining rooms.
-- Used AI to help write tests using a template I authored by referencing the tests from the lecture above and modifying it to my needs.
+- Referenced lecture demo for class 16 with instructor Ryan Gallaway
+- Referenced [AWS docs](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-started.html#ebcli3-basics-open) for [debugging permissions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.security.html#using-features.managing.security.keypair) and completing task 2.
 
 
 ***
@@ -49,7 +47,7 @@ Deploy a simple Node.js server to EC2, using Elastic Beanstalk
 #### How to initialize this application
 1. Clone this repo into your local environment
 2. `npm init -y`
-3. `npm i jest chance eslin socket.io socket.io-client`
+3. `npm i express dotenv`
 4. Copy Code Fellows config files `cp -r ../seattle-code-javascript-401d53/configs/ .`
 
 #### `.env` requirements
@@ -60,29 +58,66 @@ Deploy a simple Node.js server to EC2, using Elastic Beanstalk
 
 - `npm start` or `nodemon`
 
+#### How to deploy via Elastic Beanstalk in the GUI
+
+Create a User
+1. Go to IAM
+1. If no user exists, create one.  follow the prompts in the GUI
+1. give that user permissions create group (or not).
+  - permissions for lab 16: `AdministratorAccess-AWSElasticBeanstalk`
+  - Additional Permissions added: `AdministratorAccess`
+
+To manage the Access Key:
+1. go to the users tab in `IAM`
+1. select your user
+1. notice the tabs:  `Permissions | Groups | Tags | Security credentials`
+1. select `Security credentials`
+1. create an access key.  yes a CLI access key
+1. note: once created, you will not be able to view the secret key again
+1. go to the terminal
+  1. run the command  `aws configure`.  follow instructions... basically
+  1. paste in your access key. press enter
+  1. paste in your secret key. press enter.
+  1. select your region
+  1. default output leave as is
+
+Your Server Code
+1. confirm that your package.json is in order.
+1. `main` should be assigned the appropriate file name as an entry point
+1. start script should be present and also point to your file entry point
+1. zip ONLY the necessary files for GUI deployment. class example:  `package.json` and `server.js`
+
+To deploy via elastic beanstalk in the GUI
+1. Go to Elastic beanstalk in console (use search bar or recently visited)
+1. select the orange create application button
+1. name your application (unique to your account)
+1. platform, select node.js
+1. platform branch, use default of node 18
+1. platform version use default provided
+1. no need to add tags
+1. select `Upload your code`
+1. confirm you have a zip file with ONLY package.json and your code.
+  - NO node modules or package-lock.json
+1. choose file and upload
+1. you are done making selections, click the  orange `create application` button
+
+#### How to deploy via Elastic Beanstalk in the CLI
+
+1. `eb init`
+  1. use default names, select region, no need to add SSH
+1. `eb create`
+  1. use default names, select region, no need to add "extras" with thee y/n questions
+1. that's it.  note: create ALSO deploys code
+1. if you need to update your code, run `eb deploy`
+
 #### Features
 
-CAPS Phase 1: Event Driven Applications
-- As a vendor, I want to alert the system when I have a package to be picked up.
-- As a driver, I want to be notified when there is a package to be delivered.
-- As a driver, I want to alert the system when I have picked up a package and it is in transit.
-- As a driver, I want to alert the system when a package has been delivered.
-- As a vendor, I want to be notified when my package has been delivered.
-- As a developer, I want to create network event driven system using Socket.io so that I can write code that responds to events originating from both servers and client applications
+N/A
 
 #### Tests
 
-To run tests, use the command `npm test` in your terminal
-
- PASS  clients/vendor/vendor-handler.test.js
-  Vendor Handler
-    ✓ emit pickup message and vendor order payload (3 ms)
-    ✓ log delivered message and emit vendor thank you payload
-
- FAIL  clients/driver/driver-handler.test.js
-  Driver Handler
-    ✕ log pickup message and emit in-transit payload (1 ms)
-    ✕ log confirmation message and emit delivered payload (1 ms)
+N/A
 
 #### UML
-![UML image](UML_lab11.png)
+
+N/A
