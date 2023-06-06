@@ -38,6 +38,7 @@ Deploy a simple Node.js server to EC2, using Elastic Beanstalk
 
 - Referenced lecture demo for class 16 with instructor Ryan Gallaway
 - Referenced [AWS docs](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-getting-started.html#ebcli3-basics-open) for [debugging permissions](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/using-features.managing.security.html#using-features.managing.security.keypair) and completing task 2.
+- Also referenced video and resources from [A Cloud Guru](https://learn.acloud.guru/course/certified-solutions-architect-associate/learn/21359b7a-a8b4-4d08-8e30-48623869199f/e3662bd5-361e-43a7-9afc-c2c2f5c921e2/watch) for an overview on Elastic Beanstalk and its value prop. 
 
 
 ***
